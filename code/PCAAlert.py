@@ -1,23 +1,19 @@
-from tkinter import *
+# -*- coding: utf-8 -*-
 import numpy as np
-import matplotlib.pyplot as plt
+
 import pandas as pd
-from pandas import DataFrame, Series
+from pandas import DataFrame
 import os
-import seaborn as sns
-from sklearn.metrics import mean_squared_error
-from sklearn import preprocessing
+
 from sklearn.preprocessing import MinMaxScaler
-from sklearn.preprocessing import StandardScaler
+
 
 from scipy.stats import f
-import numbers
-import tkinter.filedialog
+
 from sklearn.externals import joblib
-import threading
+
 import time
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-import tkinter as tk
+
 import csv
 import warnings
 import win_unicode_console
@@ -230,12 +226,25 @@ def PCA(test_data, a, b, n, m, S_mean, S_var,columns,file):
                     outPutColumns = ['ID', 'Time', 'Depth', 'SPE_Value', 'SPE_Control_Line', 'T2_Value','T2_Control_Line', 'Group_Type']
                     outPutValues = [testDataCopy.ID[i], testDataCopy.Time[i], testDataCopy.Depth[i], SPEa[0, i], SPE, TT2a[0, i],T2, file]
                     if file == "model1":
-                        outPutColumns.extend(['SPE_WOB_ConValue', 'SPE_SPP_ConValue', 'SPE_RPM_ConValue', 'SPE_FLW_ConValue', 'SPE_TORQUE_ConValue', 'SPE_ROP_ConValue'])
-                        outPutColumns.extend(['T2_WOB_ConValue', 'T2_SPP_ConValue', 'T2_RPM_ConValue', 'T2_FLW_ConValue','T2_TORQUE_ConValue', 'T2_ROP_ConValue'])
+                        # ['Rho', 'FV', 'PV', 'YP', 'API', 'Sand', 'Solid']
+                        outPutColumns.extend(['SPE_Rho_ConValue', 'SPE_FV_ConValue', 'SPE_PV_ConValue', 'SPE_YP_ConValue', 'SPE_API_ConValue', 'SPE_Sand_ConValue', 'SPE_Solid_ConValue'])
+                        outPutColumns.extend(['T2_Rho_ConValue', 'T2_FV_ConValue', 'T2_PV_ConValue', 'T2_YP_ConValue','T2_API_ConValue', 'T2_Sand_ConValue', 'T2_Solid_ConValue'])
                     elif file == "model2":
-                        outPutColumns.extend(['SPE_Rho_Value', 'SPE_API_Value', 'SPE_Solid_Value', 'SPE_Sand_Value'])
-                        outPutColumns.extend(['T2_Rho_Value', 'T2_API_Value', 'T2_Solid_Value', 'T2_Sand_Value'])
-
+                        # ['GR', 'RES', 'TORQUE', 'SPP', 'ROP']
+                        outPutColumns.extend(['SPE_GR_Value', 'SPE_RES_Value', 'SPE_TORQUE_Value', 'SPE_SPP_Value', 'SPE_ROP_Value'])
+                        outPutColumns.extend(['T2_GR_Value', 'T2_RES_Value', 'T2_TORQUE_Value', 'T2_SPP_Value', 'T2_ROP_Value'])
+                    elif file == "model3":
+                        # ['WOB', 'SPP', 'RPM', 'FLW', 'TORQUE', 'ROP']
+                        outPutColumns.extend(['SPE_WOB_Value', 'SPE_SPP_Value', 'SPE_RPM_Value', 'SPE_FLW_Value', 'SPE_TORQUE_Value', 'SPE_ROP_Value'])
+                        outPutColumns.extend(['T2_WOB_Value', 'T2_SPP_Value', 'T2_RPM_Value', 'T2_FLW_Value', 'T2_TORQUE_Value', 'T2_ROP_Value'])
+                    elif file == "model4":
+                        # ['API', 'Rho', 'SPP']
+                        outPutColumns.extend(['SPE_API_Value', 'SPE_Rho_Value', 'SPE_SPP_Value'])
+                        outPutColumns.extend(['T2_API_Value', 'T2_Rho_Value', 'T2_SPP_Value'])
+                    elif file == "model5":
+                        # ['WOB', 'RPM', 'FLW', 'SPP']
+                        outPutColumns.extend(['SPE_WOB_Value', 'SPE_RPM_Value', 'SPE_FLW_Value', 'SPE_SPP_Value'])
+                        outPutColumns.extend(['T2_WOB_Value', 'T2_RPM_Value', 'T2_FLW_Value', 'T2_SPP_Value'])
                     bwriter.writerow(outPutColumns)
                     outPutValues.extend(np.round(contSPE1, 3))
                     outPutValues.extend(np.round(conT21, 3))
